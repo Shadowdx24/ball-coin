@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private GameObject coinPrefeb;
     private Vector3 offset;
     [SerializeField] public List<GameObject> coins;
+    [SerializeField] private Transform coinContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -23,19 +24,20 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("w")) 
+        if (Input.GetKey(KeyCode.W)) 
         {
             rd.velocity=Vector3.forward*Time.deltaTime*speed;
+            Debug.Log(rd.velocity);
         }
-        else if (Input.GetKey("a"))
+        else if (Input.GetKey(KeyCode.A))
         {
             rd.velocity = Vector3.left * Time.deltaTime * speed;
         }
-        else if (Input.GetKey("d"))
+        else if (Input.GetKey(KeyCode.D))
         {
             rd.velocity = Vector3.right * Time.deltaTime * speed;
         }
-        else if (Input.GetKey("s"))
+        else if (Input.GetKey(KeyCode.S))
         {
             rd.velocity = Vector3.back * Time.deltaTime * speed;
         }
@@ -45,13 +47,16 @@ public class Ball : MonoBehaviour
     {
         GameObject coin = coins.Find(x => !x.activeInHierarchy);
 
-        Vector3 pos=new Vector3(Random.Range(-21, 21), -0.84f, Random.Range(-19,19));
+        Vector3 pos=new Vector3(Random.Range(-21, 21), 0.97f, Random.Range(-19,19));
         Quaternion rot=Quaternion.Euler(90,0,0);
-        if(coins==null)
-        Instantiate(coinPrefeb,pos,rot);
+       
+        if(coin==null)
+        {
+            Instantiate(coinPrefeb, pos, rot,coinContainer);
+        }
         else
         {
-            coin.transform.position = pos;
+            coin.transform.position = pos;  
             coin.gameObject.SetActive(true);
         }
     }
