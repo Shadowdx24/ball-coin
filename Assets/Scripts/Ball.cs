@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
@@ -8,18 +10,23 @@ public class Ball : MonoBehaviour
     [Range(0, 100), SerializeField] float speed;
     public int Collection;
     private Vector3 PlayerMove;
-    [SerializeField] Transform camara;
+    //[SerializeField] Transform camara;
     [SerializeField] private GameObject coinPrefeb;
     private Vector3 offset;
     [SerializeField] private Transform coinContainer;
     [SerializeField] private int coinCount=10;
+    [SerializeField] GameObject GameOverScrene;
+    [SerializeField] GameObject ScoreScrene;
+    private int score;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText1;
 
     // Start is called before the first frame update
     void Start()
     {
         generateCoin();
        // InvokeRepeating(nameof(coin), 1f, 2f);
-        offset = camara.transform.position - transform.position;
+        //offset = camara.transform.position - transform.position;
     }
 
     // Update is called once per frame
@@ -79,8 +86,40 @@ public class Ball : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Collection++;
-           
+            score = score + 1;
         }
+        Scores();
+        
     }
 
+    private void gameOver()
+    {
+        Debug.Log("Game Over");
+        GameOverScrene.SetActive(true);
+        scoreText.text = "Score: " + score;
+        Time.timeScale = 0f;
+    }
+
+    public void Restart()
+    {
+        Debug.Log("Start Game");
+        SceneManager.LoadScene(1);
+        score=0;
+        Time.timeScale = 1f;
+    }
+
+    public void Exit()
+    {
+        //Application.Quit();
+    }
+
+    private void Scores()
+    {
+        ScoreScrene.SetActive(true);
+        scoreText1.text = "Score: " + score;
+        Time.timeScale = 1f;
+    }
+
+
 }
+ 
