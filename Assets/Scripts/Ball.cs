@@ -11,55 +11,65 @@ public class Ball : MonoBehaviour
     [SerializeField] Transform camara;
     [SerializeField] private GameObject coinPrefeb;
     private Vector3 offset;
-    [SerializeField] public List<GameObject> coins;
     [SerializeField] private Transform coinContainer;
+    [SerializeField] private int coinCount=10;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(coin), 1f, 2f);
+        generateCoin();
+       // InvokeRepeating(nameof(coin), 1f, 2f);
         offset = camara.transform.position - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W)) 
-        {
-            rd.velocity=Vector3.forward*Time.deltaTime*speed;
-            Debug.Log(rd.velocity);
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            rd.velocity = Vector3.left * Time.deltaTime * speed;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rd.velocity = Vector3.right * Time.deltaTime * speed;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            rd.velocity = Vector3.back * Time.deltaTime * speed;
-        }
+        //if (Input.GetKey(KeyCode.W)) 
+        //{
+        //    rd.velocity = Vector3.forward *speed;
+        //    Debug.Log(rd.velocity);
+        //}
+        //else if (Input.GetKey(KeyCode.A))
+        //{
+        //    rd.velocity = Vector3.left  * speed;
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    rd.velocity = Vector3.right * speed;
+        //}
+        //else if (Input.GetKey(KeyCode.S))
+        //{
+        //    rd.velocity = Vector3.back * speed;
+        //}
 
     }
-    void coin()
+    private void FixedUpdate()
     {
-        GameObject coin = coins.Find(x => !x.activeInHierarchy);
+        float x=Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
-        Vector3 pos=new Vector3(Random.Range(-21, 21), 0.97f, Random.Range(-19,19));
-        Quaternion rot=Quaternion.Euler(90,0,0);
-       
-        if(coin==null)
-        {
-            Instantiate(coinPrefeb, pos, rot,coinContainer);
-        }
-        else
-        {
-            coin.transform.position = pos;  
-            coin.gameObject.SetActive(true);
-        }
+        Vector3 m =new Vector3(x, 0f, z);
+
+        rd.AddForce(m*speed);
     }
+    
+    void generateCoin()
+    {
+        
+        
+        for (int i = 0; i < coinCount; i++)
+        {
+            Vector3 pos = new Vector3(Random.Range(-21, 21), 0.97f, Random.Range(-19, 19));
+            Quaternion rot = Quaternion.Euler(90, 0, 0);
+            GameObject coin= Instantiate(coinPrefeb,pos,rot,coinContainer);
+            coin.SetActive(true);
+        }
+
+    }
+    
+    
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -67,7 +77,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.tag=="coin")
         {
-            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             Collection++;
            
         }
