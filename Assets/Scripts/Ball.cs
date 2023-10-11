@@ -86,16 +86,24 @@ public class Ball : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Collection++;
+            AudioManager.instance.Play("Coin");
             score = score + 1;
         }
         Scores();
-        
+        if (Collection==coinCount)
+        {
+            gameOver();
+
+        }
     }
 
     private void gameOver()
     {
         Debug.Log("Game Over");
         GameOverScrene.SetActive(true);
+        ScoreScrene.SetActive(false);
+        //AudioManager.instance.Play("Coin");
+        AudioManager.instance.Stop("BG");
         scoreText.text = "Score: " + score;
         Time.timeScale = 0f;
     }
