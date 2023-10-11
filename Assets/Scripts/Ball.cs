@@ -102,7 +102,7 @@ public class Ball : MonoBehaviour
         Debug.Log("Game Over");
         GameOverScrene.SetActive(true);
         ScoreScrene.SetActive(false);
-        //AudioManager.instance.Play("Coin");
+        AudioManager.instance.Play("Win");
         AudioManager.instance.Stop("BG");
         scoreText.text = "Score: " + score;
         Time.timeScale = 0f;
@@ -111,6 +111,7 @@ public class Ball : MonoBehaviour
     public void Restart()
     {
         Debug.Log("Start Game");
+        AudioManager.instance.Stop("Win");
         SceneManager.LoadScene(1);
         score=0;
         Time.timeScale = 1f;

@@ -2374,6 +2374,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+  - Name: Win
+    clip: {fileID: 8300000, guid: 053b9cbf81a970f49b9ea183ffb2c447, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioSource: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
