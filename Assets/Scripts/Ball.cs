@@ -16,11 +16,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private Transform coinContainer;
     [SerializeField] private int coinCount=10;
     [SerializeField] GameObject GameOverScrene;
+    [SerializeField] GameObject GameWinScrene;
     [SerializeField] GameObject ScoreScrene;
     private int score;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI scoreText1;
-
+    [SerializeField] private AudioManager audioManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,20 +88,39 @@ public class Ball : MonoBehaviour
             Destroy(collision.gameObject);
             Collection++;
             AudioManager.instance.Play("Coin");
+            //audioManager.Play("Coin");
             score = score + 1;
         }
+        
         Scores();
         if (Collection==coinCount)
         {
-            gameOver();
+            Win();
 
         }
+        
+        if (collision.gameObject.CompareTag("wall"))
+        {
+            gameOver();
+        }
     }
+
+  
 
     private void gameOver()
     {
         Debug.Log("Game Over");
         GameOverScrene.SetActive(true);
+        ScoreScrene.SetActive(false);
+        AudioManager.instance.Play("Lose");
+        AudioManager.instance.Stop("BG");
+        scoreText.text = "Score: " + score;
+        Time.timeScale = 0f;
+    }
+    private void Win()
+    {
+        Debug.Log("Win");
+        GameWinScrene.SetActive(true);
         ScoreScrene.SetActive(false);
         AudioManager.instance.Play("Win");
         AudioManager.instance.Stop("BG");
@@ -112,10 +132,31 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("Start Game");
         AudioManager.instance.Stop("Win");
+        AudioManager.instance.Play("BG");
         SceneManager.LoadScene(1);
-        score=0;
+        score =0;
         Time.timeScale = 1f;
     }
+
+    public void Level2()
+    {
+        Debug.Log("Level 2");
+        AudioManager.instance.Stop("Win");
+        AudioManager.instance.Play("BG");
+        SceneManager.LoadScene(2);
+        score = 0;
+        Time.timeScale = 1f;
+    }
+    public void Level3()
+    {
+        Debug.Log("Level 3");
+        AudioManager.instance.Stop("Win");
+        AudioManager.instance.Stop("BG");
+        SceneManager.LoadScene(3);
+        score = 0;
+        Time.timeScale = 1f;
+    }
+
 
     public void Exit()
     {

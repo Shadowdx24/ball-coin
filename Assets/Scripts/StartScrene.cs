@@ -21,6 +21,8 @@ public class StartScrene : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         Time.timeScale = 1f;
+        AudioManager.instance.Stop("Start");
+        AudioManager.instance.Play("BG");
 
     }
 }

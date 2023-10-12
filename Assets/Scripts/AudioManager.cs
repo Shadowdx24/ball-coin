@@ -13,7 +13,14 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+       
         foreach (var sound in sounds)
         {
             sound.audioSource=gameObject.AddComponent<AudioSource>();
@@ -26,7 +33,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Play("BG");
+        Play("Start");
     }
 
     public void Play(string audioName) 

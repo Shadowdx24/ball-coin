@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScren.unity
     guid: 8eb9c8bf7ae9620458b50be4aaf43418
   - enabled: 1
-    path: Assets/Scenes/ball.unity
+    path: Assets/Scenes/Level 1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 33efab86feab34745a30170665b27b08
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 2a057bb8bce5a4b499f0b5092ec66b90
   m_configObjects: {}
