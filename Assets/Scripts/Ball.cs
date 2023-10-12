@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
     private int score;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI scoreText1;
+    [SerializeField] private TextMeshProUGUI scoreText2;
     [SerializeField] private AudioManager audioManager;
     // Start is called before the first frame update
     void Start()
