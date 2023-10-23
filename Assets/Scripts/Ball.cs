@@ -133,6 +133,7 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("Start Game");
         AudioManager.instance.Stop("Win");
+        AudioManager.instance.Stop("Lose");
         AudioManager.instance.Play("BG");
         SceneManager.LoadScene(1);
         score =0;
