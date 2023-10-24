@@ -153,7 +153,7 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("Level 3");
         AudioManager.instance.Stop("Win");
-        AudioManager.instance.Stop("BG");
+        AudioManager.instance.Play("BG");
         SceneManager.LoadScene(3);
         score = 0;
         Time.timeScale = 1f;
