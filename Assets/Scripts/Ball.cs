@@ -115,7 +115,7 @@ public class Ball : MonoBehaviour
         ScoreScrene.SetActive(false);
         AudioManager.instance.Play("Lose");
         AudioManager.instance.Stop("BG");
-        scoreText.text = "Score: " + score;
+        scoreText2.text = "Score: " + score;
         Time.timeScale = 0f;
     }
     private void Win()
